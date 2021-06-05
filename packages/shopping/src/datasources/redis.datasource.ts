@@ -4,15 +4,15 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {inject, lifeCycleObserver, ValueOrPromise} from '@loopback/core';
-import {juggler, AnyObject} from '@loopback/repository';
+import {AnyObject, juggler} from '@loopback/repository';
 
 const config = {
   name: 'redis',
   connector: 'kv-redis',
   host: '127.0.0.1',
   port: 6379,
-  password: '',
-  db: 0,
+  password: '12345',
+  db: 1,
 };
 
 function updateConfig(dsConfig: AnyObject) {

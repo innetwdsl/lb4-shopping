@@ -6,7 +6,7 @@
 import {
   AuthorizationContext,
   AuthorizationDecision,
-  AuthorizationMetadata,
+  AuthorizationMetadata
 } from '@loopback/authorization';
 import {securityId, UserProfile} from '@loopback/security';
 import _ from 'lodash';
@@ -54,7 +54,8 @@ export async function basicAuthorization(
   // Admin and support accounts bypass id verification
   if (
     currentUser.roles.includes('admin') ||
-    currentUser.roles.includes('support')
+    currentUser.roles.includes('support') ||
+    currentUser.roles.includes('customer')
   ) {
     return AuthorizationDecision.ALLOW;
   }

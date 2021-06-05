@@ -3,27 +3,35 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+import {authenticate} from '@loopback/authentication';
+import {authorize} from '@loopback/authorization';
 import {
   Count,
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
+  del, get,
   getFilterSchemaFor,
   getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
+  getWhereSchemaFor, param,
+
+
+
+
+  patch, post,
+
+
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
-import {authenticate} from '@loopback/authentication';
-import {authorize} from '@loopback/authorization';
 import {Product} from '../models';
 import {ProductRepository} from '../repositories';
 import {basicAuthorization} from '../services';
@@ -33,7 +41,7 @@ export class ProductController {
   constructor(
     @repository(ProductRepository)
     public productRepository: ProductRepository,
-  ) {}
+  ) { }
 
   @post('/products', {
     security: OPERATION_SECURITY_SPEC,
@@ -63,6 +71,7 @@ export class ProductController {
   }
 
   @get('/products/count', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Product model count',
@@ -70,6 +79,8 @@ export class ProductController {
       },
     },
   })
+  @authenticate('jwt')
+  @authorize({allowedRoles: ['admin', 'support', 'customer'], voters: [basicAuthorization]})
   async count(
     @param.query.object('where', getWhereSchemaFor(Product))
     where?: Where<Product>,
@@ -78,6 +89,7 @@ export class ProductController {
   }
 
   @get('/products', {
+    security: OPERATION_SECURITY_SPEC,
     responses: {
       '200': {
         description: 'Array of Product model instances',
@@ -92,6 +104,7 @@ export class ProductController {
       },
     },
   })
+  @authenticate('jwt')
   async find(
     @param.query.object('filter', getFilterSchemaFor(Product))
     filter?: Filter<Product>,

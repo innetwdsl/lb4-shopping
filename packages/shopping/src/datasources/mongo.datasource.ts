@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {inject, lifeCycleObserver, ValueOrPromise} from '@loopback/core';
-import {juggler, AnyObject} from '@loopback/repository';
+import {AnyObject, juggler} from '@loopback/repository';
 
 const config = {
   name: 'mongo',
@@ -14,7 +14,7 @@ const config = {
   port: 27017,
   user: '',
   password: '',
-  database: '',
+  database: 'demo',
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };

@@ -6,7 +6,7 @@
 import {
   authenticate,
   TokenService,
-  UserService,
+  UserService
 } from '@loopback/authentication';
 import {TokenServiceBindings} from '@loopback/authentication-jwt';
 import {authorize} from '@loopback/authorization';
@@ -19,17 +19,17 @@ import {
   param,
   post,
   put,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
+import isemail from 'isemail';
 import _ from 'lodash';
 import {PasswordHasherBindings, UserServiceBindings} from '../keys';
 import {
-  NodeMailer,
+  KeyAndPassword, NodeMailer,
   Product,
   ResetPasswordInit,
-  User,
-  KeyAndPassword,
+  User
 } from '../models';
 import {Credentials, UserRepository} from '../repositories';
 import {
@@ -38,15 +38,14 @@ import {
   RecommenderService,
   UserManagementService,
   validateCredentials,
-  validateKeyPassword,
+  validateKeyPassword
 } from '../services';
 import {OPERATION_SECURITY_SPEC} from '../utils';
 import {
   CredentialsRequestBody,
   PasswordResetRequestBody,
-  UserProfileSchema,
+  UserProfileSchema
 } from './specs/user-controller.specs';
-import isemail from 'isemail';
 
 @model()
 export class NewUserRequest extends User {
@@ -71,7 +70,7 @@ export class UserManagementController {
     public userService: UserService<User, Credentials>,
     @inject(UserServiceBindings.USER_SERVICE)
     public userManagementService: UserManagementService,
-  ) {}
+  ) { }
 
   @post('/users', {
     responses: {
